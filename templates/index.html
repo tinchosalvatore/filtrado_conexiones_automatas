@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Conexiones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- La carpeta se debe llamar static por reglas de Flask -->
+</head>
+
+
+<body>
+    <div class="container">
+        <h1>Análisis de Conexiones</h1>
+        
+        <!--Si hay un error, entonces llamamos a la variable error de app.py-->
+        {% if error %}
+            <div class="alert error">{{ error }}</div>
+        {% endif %}
+        
+        <!-- Aca se sube el archivo.csv y se pide el Intervalo de fechas (inicio y fin) -->
+        <form method="POST">
+            <div class="form-group">
+                <label for="ruta_csv">Ruta del archivo CSV:</label>
+                <input type="text" id="ruta_csv" name="ruta_csv" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="fecha_inicio">Fecha de inicio:</label>
+                <input type="date" id="fecha_inicio" name="fecha_inicio" required pattern="\d{4}-\d{2}-\d{2}">
+            </div>
+            
+            <div class="form-group">
+                <label for="fecha_fin">Fecha de fin:</label>
+                <input type="date" id="fecha_fin" name="fecha_fin" required pattern="\d{4}-\d{2}-\d{2}">
+            </div>
+            
+            <!-- Boton que inicializa el programa -->
+            <button type="submit">Analizar</button>
+        </form>
+        
+        <!--Si hay resultados, muestra en pantalla los datos de importancia-->
+        {% if dispositivos %}
+        <div class="results">
+            <h2>Resultados</h2>
+            <p>Total de dispositivos: {{ dispositivos|length }}</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>MAC</th>
+                        <th>Fecha de conexión</th>
+                        <th>Hora de conexión</th>
+                        <th>Fecha de fin de conexión</th>
+                        <th>Hora de fin de conexión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Itera por cada dispitico en la lista de dispositivos -->
+                    {% for dispositivo in dispositivos %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ dispositivo.Usuario }}</td>
+                        <td>{{ dispositivo.MAC_Cliente }}</td>
+                        <td>{{ dispositivo.Inicio_de_Conexión_Dia }}</td>
+                        <td>{{ dispositivo.Hora_de_conexión }}</td>
+                        <td>{{ dispositivo.Fin_de_conexión }}</td>
+                        <td>{{ dispositivo.Hora_fin_de_conexion }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        
+        <!-- Mostrar corruptos si hay alguno
+        {% if datos_corruptos %}
+        <div class="results">
+            <h2>Registros Corruptos</h2>
+            <p>Total de dispositivos: {{ datos_corruptos|length }}</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>MAC</th>
+                        <th>Fecha de conexión</th>
+                        <th>Hora de conexión</th>
+                        <th>Fecha de fin de conexión</th>
+                        <th>Hora de fin de conexión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dispositivo in datos_corruptos %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ dispositivo.Usuario }}</td>
+                        <td>{{ dispositivo.MAC_Cliente }}</td>
+                        <td>{{ dispositivo.Inicio_de_Conexión_Dia }}</td>
+                        <td>{{ dispositivo.Hora_de_conexión }}</td>
+                        <td>{{ dispositivo.Fin_de_conexión }}</td>
+                        <td>{{ dispositivo.Hora_fin_de_conexion }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        Mostrar corruptos si hay alguno -->
+    </div>
+</body>
+</html>
