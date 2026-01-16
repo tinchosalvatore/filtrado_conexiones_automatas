@@ -51,15 +51,18 @@ flask run
 ```
 
 
-## Accede desde tu navegador:
+### Accede desde tu navegador:
 ```bash
 http://localhost:5000
 ```
 
 
-## Parámetros del formulario:
-```text
-Ruta CSV: Ruta absoluta o relativa al archivo CSV
-Fecha inicio: Fecha inicial del análisis (formato YYYY-MM-DD)
-Fecha fin: Fecha final del análisis (formato YYYY-MM-DD)
-```
+#### Completar el formulario:
+![menu principal](img/menu.png)
+
+**Ruta CSV**: Ruta absoluta o relativa al archivo CSV
+**Fecha inicio**: YYYY-MM-DD
+**Fecha fin**: YYYY-MM-DD
+
+#### Ver resultados filtrados:
+![resultados filtrados](img/filtrado.png)
